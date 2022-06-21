@@ -1,0 +1,264 @@
+/*
+全体
+****/
+
+.container {
+    display: flex;
+    
+    justify-content: flex-end;
+}
+
+.side {
+    width: 90px;
+}
+
+.main {
+    width: calc(100% - 90px);
+    border-left: 1px solid #eef;
+    border-right: 1px solid #eef;
+    text-align: left;
+    max-width: 600px;
+}
+
+@media screen and (max-width: 500px){
+  .container{
+    padding:0;
+  }
+  .side{
+    width:60px;
+  }
+  .main{
+    width:calc(100% - 60px);
+    
+  }
+  
+}
+
+.nav-link {
+    padding: .3rem .3rem;
+}
+
+
+.btn{
+  background-color: #1af;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.btn:hover{
+    color: #fff;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+/*
+サイド
+****/
+.side .side-inner {
+    position: sticky;
+    height: 100vh;
+    top: 0px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.side-inner img {
+    width: 35%;
+    margin-bottom: 15px;
+}
+
+.side .side-inner img.icon {
+    width: 70%;
+}
+
+.side .side-inner img.post-tweet {
+    width: 80%;
+}
+
+.side .side-inner .my-icon img {
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+}
+
+.side .side-inner .my-icon img {
+    width: 60%;
+    border-radius: 50%;
+    border: 0.2px solid #aaa;
+}
+
+@media screen and (max-width: 500px){
+
+  .side-inner img{
+    width:70%;
+    margin-bottom:15px;
+  }
+
+  .side-inner img.icon{
+    width:85%;
+  }
+
+  .side-inner img.post-tweet{
+    width:100%;
+  }
+
+  .side-inner .my-icon img{
+    width:90%;
+  }
+}
+
+/*
+メイン
+****/
+
+.main .main-header{
+    padding: 20px;
+    border-bottom: 1px solid #eef;
+}
+
+.main .main-header h1{
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+/*
+ホーム
+****/
+.main-home .tweet-post {
+    display: flex;
+    padding: 10px;
+}
+
+.main-home .tweet-post .my-icon{
+    width: 80px;
+    padding: 5px 15px 10px 10px;
+}
+
+.main-home .tweet-post .my-icon img{
+    width: 100%;
+    border-radius: 50%;
+    border: 0.2px solid #aaa;
+}
+
+.main-home .tweet-post .input-area{
+    width: calc(100% - 80px);
+    flex-grow: 1;
+}
+
+.main-home .tweet-post .input-area textarea{
+    border: 0;
+    width: 100%;
+    height: 100px;
+    resize: none;
+}
+
+.main-home .tweet-post .input-area textarea:focus{
+    outline: none;
+}
+
+.main-home .tweet-post .input-area .bottom-area{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #eef;
+    padding-top: 8px;
+}
+
+.main-home .ditch{
+  height: 15px;
+  background-color: #f7f8f8;
+  border-top: 1px solid #eef;
+  border-bottom: 1px solid #eef;
+}
+
+.tweet{
+  padding: 10px;
+  display: flex;
+  border-bottom: 1px solid #eef;
+}
+
+
+
+
+.content p{
+    font-size: 16px;
+    padding: 8px 0 0;
+    margin-bottom: 8px;
+}
+
+
+.user{
+    width: 80px;
+    padding: 5px 15px 10px 10px;
+}
+
+.user img{
+    width: 100%;
+    border-radius: 50%;
+    border: 0.2px solid #aaa;
+}
+
+.name{
+    padding-top: 5px;
+}
+
+.name a{
+    color: #122;
+}
+
+.nickname{
+    color: #122;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.user-name{
+    color: #444;
+    font-size: 14px;
+}
+
+.content{
+    width: calc(100% - 60px);
+}
+
+
+
+.content img.post-image{
+    width: 100%;
+    border-radius: 15%;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    border: 1px solid #eef;
+}
+
+.icon-list{
+    display: flex;
+}
+
+.like img{
+    width: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.like-count{
+    width: 25px;
+    padding-top: 2px;
+    color: #444;
+}
+
+@media screen and (max-width:500px){
+  .user{
+    width:60px;
+    padding:5px 10px 10px 5ox;
+  }
+  .btn{
+    margin-top:10px;
+  }
+}
