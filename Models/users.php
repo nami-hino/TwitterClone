@@ -11,11 +11,9 @@
  */
 function createUser(array $data)
 {
-    // DB接続
+    // DB接続 
+    $mysqli = new mysqli(DB_HOST, DB_USER,DB_PASSWORD,DB_NAME);
     
-    $mysqli = new mysql(DB_HOST, DB_USER,DB_PASSWORD,DB_NAME);
-    //$mysqli = mysqli_connect('localhost', 'root', 'root', 'twitter_clone');
-
     // 接続エラーがある場合->処理停止
     if ($mysqli->connect_errno) {
         echo 'MySQLの接続に失敗しました。：' . $mysqli->connect_error . "\n";
@@ -48,4 +46,63 @@ function createUser(array $data)
     $mysqli->close();
 
     return $response;
+}
+
+/** 
+ * ユーザー情報取得:ログインチェック
+ * 
+ * @param string $email
+ * @param string $password
+ * @return arrayfalse
+ */
+
+ function findUserAndCheckPassword(string $email, string $password)
+ {
+    // DB接続 
+    $mysqli = new mysqli(DB_HOST, DB_USER,DB_PASSWORD,DB_NAME);
+    //$mysqli = mysqli_connect('localhost', 'root', 'root', 'twitter_clone');
+
+    // 接続エラーがある場合->処理停止
+    if ($mysqli->connect_errno) {
+        echo 'MySQLの接続に失敗しました。：' . $mysqli->connect_error . "\n";
+        exit;
+
+    }
+
+    // 入力値をエスケープ
+    $email = $mysqli ->real_escape_string($email);
+
+    //SQLクエリを作成
+    // - 外部からのリクエストは何が入ってくるかわからないので、必ずエスケープしたものをクオートで囲む
+    $query = 'SELECT * FROM users WHERE email = "' . $email . '"';
+
+    // クエリを実行
+    $result = $mysqli->query($query);
+
+    // クエリ実行に失敗した場合->return
+    if (!$result) {
+        // MySQL処理中にエラー発生
+        echo 'エラーメッセージ：' . $mysqli->error . "\n";
+        $mysqli->close();
+        return false;
+    }
+
+    // ユーザー情報を取得
+$user = $result->fetch_array(MYSQLI_ASSOC);
+// ユーザーが存在しない場合->return
+if(!$user){
+    $mysqli->close();
+    return false;
+}
+
+// パスワードチェック、不一致の場合->return
+if (!password_verify($password, $user['password'])) {
+    $mysqli->close();
+    return false;
+}
+
+// DB接続を解放
+$mysqli->close();
+
+return $user;
 }
