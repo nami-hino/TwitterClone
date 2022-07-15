@@ -116,6 +116,39 @@ if (!isset($user['image_name'])) {
 $user['image_path'] = buildImagePath($user['image_name'], 'user');
 
 return $user;
+}
 
+/**
+ * 画像をアップロード
+ * 
+ * @param array $user
+ * @param array $file
+ * @param string $type
+ *@return string 画像のファイル名 
+ */
+function uploadImage(array $user, array $file,string $type)
+{
+// 画像のファイル名から拡張子を取得
+$image_extension = strrchr($file['name'], '.');
 
+// 画像のファイル名を作成
+$image_name = $user['id'] . '_' . date('YmdHis') . $image_extension;
+
+// 保存先のディレクトリ
+$directory = '../Views/img_uploaded/' . $type . '/';
+
+//画象のパス
+$image_path = $directry . $image_name;
+
+//画像を設置
+move_uploaded_file($file['tmp_name'], $image_path);
+
+//画像ファイルの場合->ファイル名をreturn
+if (exif_imagetype($image_path)) {
+    return $image_name;
+}
+
+//画像ファイル以外の場合
+echo '選択されたファイルが画像ではないため処理を停止しました。';
+exit;
 }
