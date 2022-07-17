@@ -378,7 +378,7 @@ body.signup {
     padding: 15px;
 }
 .search .search-area input {
-    width: 70px;
+    width: 70%;
     max-width: 300px;
     margin-right: 10px;
 }
