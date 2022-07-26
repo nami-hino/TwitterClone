@@ -21,7 +21,7 @@ if (isset($_POST['nickname']) && isset($_POST['name']) && isset($_POST['email'])
 // ユーザーを作成し、成功すれば
 if (createUser($data)) {
     // ログイン画面に遷移
-    header('Location: ' . HOME_URL . 'controllers/sign-in.php');
+    header('Location: ' . HOME_URL . 'Controllers/sign-in.php');
     exit;
 }
 }
