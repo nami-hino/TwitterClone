@@ -138,7 +138,7 @@ $image_name = $user['id'] . '_' . date('YmdHis') . $image_extension;
 $directory = '../Views/img_uploaded/' . $type . '/';
 
 //画象のパス
-$image_path = $directry . $image_name;
+$image_path = $directory . $image_name;
 
 //画像を設置
 move_uploaded_file($file['tmp_name'], $image_path);
