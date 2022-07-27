@@ -16,7 +16,7 @@ $user = getUserSession();
 if (!$user) {
     // ログインしていない
 
-    header('Location: ' . HOME_URL . 'controlllers/sign-in.php');
+    header('Location: ' . HOME_URL . 'Controllers/sign-in.php');
     exit;
 }
 
