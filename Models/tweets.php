@@ -37,15 +37,62 @@ function createTweet(array $data)
  
     return $response;
 }
+
+/**
+ * ツイート1件取得
+ * 
+ * @param int $tweet_id
+ * @retuen array|false
+ */
+function findTweet(int $tweet_id)
+{
+    // DB接続
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    if ($mysqli->connect_errno) {
+        echo 'MySQLの接続に失敗しました。：' . $mysqli->connect_error . "\n";
+        exit;
+    }
+
+    // エスケープ
+    $tweet_id = $mysqli->real_escape_string($tweet_id);
+ 
+    // ------------------------------------
+    // SQLクエリを作成
+    // ------------------------------------
+    $query = 'SELECT * FROM tweets WHERE status = "active" AND id = "' . $tweet_id . '"';
+
+    // --------
+    // 戻り値を作成
+    // ---------
+    if ($result = $mysqli->query($query)) {
+        // データを1件取得
+        $response = $result->fetch_array(MYSQLI_ASSOC);
+    } else {
+        $response = false;
+        echo 'エラーメッセージ：' . $mysqli->error . "\n";
+    }
+
+    //--------
+    // 後処理
+    // ------
+    // DB接続を開放
+    $mysqli->close();
+
+    return $response;
+
+
+    }
+
  
 /**
     * ツイート一覧を取得
     *
     * @param array $user ログインしているユーザー情報
     * @param string $keyword 検索キーワード
+    * @param array $user_ids ユーザーid一覧
     * @return array|false
     */
-function findTweets(array $user, string $keyword =null)
+function findTweets(array $user, string $keyword =null, array $user_ids=null)
 {
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     // 接続チェック
@@ -91,6 +138,16 @@ function findTweets(array $user, string $keyword =null)
         $keyword = $mysqli->real_escape_string($keyword);
         // ツイート主のニックネーム・ユーサー名・本文からの部分一致検索
         $query .=' AND CONCAT(U.nickname, U.name, T.body) LIKE "%' . $keyword . '%"';
+    }
+
+    //ユーザーIDが指定されている場合
+    if (isset($user_ids)){
+        foreach ($user_ids as $key => $user_id){
+            $user_ids[$key] = $mysqli->real_escape_string($user_id);
+        }
+        $user_ids_csv = '"' .join(",",$user_ids).'"';
+        //ユーザーid一覧に含まれるユーザーで絞る
+        $query .='AND T.user_id IN('.$user_ids_csv.')';
     }
  
     // 新しい順位並び替え

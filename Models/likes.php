@@ -30,7 +30,7 @@ function createLike(array $data)
     if ($statement->execute()) {
         // 戻り値用の変数にセット：インサートID (likes.id）
         $response = $mysqli->insert_id;
-    } else{
+    } else {
         //戻り値用の変数にセット：失敗
         $response = false;
         echo 'エラーメッセージ：' . $mysqli->error . "\n";
